@@ -1,17 +1,15 @@
-import React, { useState } from "react";
-import Layout from "../component/Layout";
-import { Button, Card, Form } from "react-bootstrap";
+import React, { useState } from 'react';
+import { Button, Card, Form } from 'react-bootstrap';
+import Layout from '../component/Layout';
 
 const HomePage = () => {
   const [validated, setValidated] = useState(false);
   const handleLogin = event => {
     const form = event.currentTarget;
-    console.log(form);
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
     }
-
     setValidated(true);
   };
 
