@@ -8,17 +8,17 @@ const listEvent = [
   {
     id: 1,
     name: 'Event 1',
-    date: new Date().toLocaleDateString(),
+    start_date: new Date().toLocaleDateString(),
   },
   {
     id: 2,
     name: 'Event 2',
-    date: new Date().toLocaleDateString(),
+    start_date: new Date().toLocaleDateString(),
   },
   {
     id: 3,
     name: 'Anjing',
-    date: new Date().toLocaleDateString(),
+    start_date: new Date().toLocaleDateString(),
   },
 ];
 
@@ -100,7 +100,7 @@ const Table = () => {
                   <a>{value.name}</a>
                 </Link>
               </td>
-              <td>{value.date}</td>
+              <td>{value.start_date}</td>
               <td>
                 <Button
                   variant="danger"
@@ -116,7 +116,7 @@ const Table = () => {
                   modalValue={{
                     id: value.id,
                     name: value.name,
-                    date: value.date,
+                    start_date: value.start_date,
                   }}
                 />
               </td>

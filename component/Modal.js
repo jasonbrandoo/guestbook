@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { Modal as Modals, Button, Form } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import Axios from 'axios';
 
 const Modal = ({ addEvent, editEvent, modalType, modalValue }) => {
-  const [input, setInput] = useState({ name: '', date: '' });
+  const [input, setInput] = useState({ name: '', start_date: '' });
   const [validated, setValidated] = useState(false);
   const [edit, setEdit] = useState({
     id: modalValue ? modalValue.id : '',
     name: modalValue ? modalValue.name : '',
-    date: modalValue ? modalValue.date : '',
+    start_date: modalValue ? modalValue.start_date : '',
   });
   const [show, setShow] = useState(false);
 
@@ -38,15 +39,31 @@ const Modal = ({ addEvent, editEvent, modalType, modalValue }) => {
     });
   };
 
+  const insertDb = async () => {
+    try {
+      const res = await Axios.post('http://localhost:3001/event', input);
+      const { data } = res;
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
   const handleSubmit = event => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
+    } else if (modalValue) {
+      alert('edit');
+      editEvent(event, edit);
+      handleClose();
+      setInput({ name: '', start_date: '' });
     } else {
+      alert('input');
       addEvent(event, input);
       handleClose();
-      setInput({ name: '', date: '' });
+      insertDb();
+      setInput({ name: '', start_date: '' });
     }
     setValidated(true);
   };
@@ -86,8 +103,7 @@ const Modal = ({ addEvent, editEvent, modalType, modalValue }) => {
                 <Form.Control
                   type="date"
                   onChange={handleInput}
-                  value={input.date}
-                  name="date"
+                  name="start_date"
                   required
                 />
               </Form.Group>
@@ -130,7 +146,7 @@ const Modal = ({ addEvent, editEvent, modalType, modalValue }) => {
                 <Form.Control
                   type="date"
                   onChange={handleEdit}
-                  name="date"
+                  name="start_date"
                   required
                 />
               </Form.Group>
@@ -156,7 +172,7 @@ Modal.propTypes = {
   modalValue: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
-    date: PropTypes.string,
+    start_date: PropTypes.string,
   }),
 };
 
