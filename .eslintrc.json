@@ -20,9 +20,11 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": ["react", "react-hooks"],
+  "plugins": [
+    "react",
+    "react-hooks"
+  ],
   "rules": {
-    "prettier/prettier": "error",
     "react/jsx-filename-extension": 0,
     "react/jsx-one-expression-per-line": 0,
     "react-hooks/rules-of-hooks": "error",

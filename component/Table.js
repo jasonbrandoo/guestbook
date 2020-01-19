@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
-import {Button, Table as Tables, Form} from 'react-bootstrap';
+import { Button, Table as Tables, Form } from 'react-bootstrap';
 import Modal from './Modal';
 
 const listEvent = [
@@ -29,7 +29,7 @@ const Table = () => {
   const addEvent = (event, input) => {
     event.preventDefault();
     setList(prevState => {
-      return [...prevState, {id: Math.random(), ...input}];
+      return [...prevState, { id: Math.random(), ...input }];
     });
   };
 
@@ -38,16 +38,16 @@ const Table = () => {
     setList(prevState => {
       const edited = prevState.map(value => {
         if (value.id === edit.id) {
-          return {...value, ...edit};
+          return { ...value, ...edit };
         }
-        return {...value};
+        return { ...value };
       });
       return edited;
     });
   };
 
   const handleSearch = event => {
-    const {value} = event.target;
+    const { value } = event.target;
     setFiltered(list);
     if (value !== '') {
       setList(prevState => {
@@ -93,7 +93,10 @@ const Table = () => {
             <tr key={value.id}>
               <td>{index + 1}</td>
               <td>
-                <Link href="/event/[id]" as={`/event/${value.id}`}>
+                <Link
+                  href="/event/[name]/[id]"
+                  as={`/event/${value.id}/${value.name}`}
+                >
                   <a>{value.name}</a>
                 </Link>
               </td>

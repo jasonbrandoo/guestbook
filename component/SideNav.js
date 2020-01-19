@@ -1,13 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
-import {Navbar, Nav} from 'react-bootstrap';
+import { Navbar, Nav } from 'react-bootstrap';
 import Link from 'next/link';
 
 const SideNav = () => (
-  <Navbar expand="md" className="border-right bg-light">
+  <Navbar expand="md" className="border-right p-0">
     <Navbar.Toggle className="ml-auto" />
     <Navbar.Collapse>
-      <Nav className="flex-column" style={{height: 'calc(100vh - 56px)'}}>
+      <Nav className="flex-column" style={{ height: 'calc(100vh - 56px)' }}>
         <Link href="/">
           <a className="nav-link">Home</a>
         </Link>

@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
-import {Modal as Modals, Button, Form} from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Modal as Modals, Button, Form } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-const Modal = ({addEvent, editEvent, modalType, modalValue}) => {
-  const [input, setInput] = useState({name: '', date: ''});
+const Modal = ({ addEvent, editEvent, modalType, modalValue }) => {
+  const [input, setInput] = useState({ name: '', date: '' });
+  const [validated, setValidated] = useState(false);
   const [edit, setEdit] = useState({
     id: modalValue ? modalValue.id : '',
     name: modalValue ? modalValue.name : '',
@@ -16,8 +17,8 @@ const Modal = ({addEvent, editEvent, modalType, modalValue}) => {
   const handleShow = () => setShow(true);
 
   const handleInput = event => {
-    const {name} = event.target;
-    const {value} = event.target;
+    const { name } = event.target;
+    const { value } = event.target;
     setInput(prevState => {
       return {
         ...prevState,
@@ -27,14 +28,27 @@ const Modal = ({addEvent, editEvent, modalType, modalValue}) => {
   };
 
   const handleEdit = event => {
-    const {name} = event.target;
-    const {value} = event.target;
+    const { name } = event.target;
+    const { value } = event.target;
     setEdit(prevState => {
       return {
         ...prevState,
         [name]: value,
       };
     });
+  };
+
+  const handleSubmit = event => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    } else {
+      addEvent(event, input);
+      handleClose();
+      setInput({ name: '', date: '' });
+    }
+    setValidated(true);
   };
 
   const render =
@@ -55,7 +69,7 @@ const Modal = ({addEvent, editEvent, modalType, modalValue}) => {
             </Modals.Title>
           </Modals.Header>
           <Modals.Body>
-            <Form onSubmit={e => addEvent(e, input)}>
+            <Form noValidate validated={validated} onSubmit={handleSubmit}>
               <Form.Group controlId="Name">
                 <Form.Label>Name</Form.Label>
                 <Form.Control
@@ -77,14 +91,7 @@ const Modal = ({addEvent, editEvent, modalType, modalValue}) => {
                   required
                 />
               </Form.Group>
-              <Button
-                variant="success"
-                type="submit"
-                onClick={handleClose}
-                className="w-100"
-              >
-                Login
-              </Button>
+              <Button type="submit">Add</Button>
             </Form>
           </Modals.Body>
         </Modals>
@@ -106,7 +113,7 @@ const Modal = ({addEvent, editEvent, modalType, modalValue}) => {
             </Modals.Title>
           </Modals.Header>
           <Modals.Body>
-            <Form onSubmit={e => editEvent(e, edit)}>
+            <Form noValidate validated={validated} onSubmit={handleSubmit}>
               <Form.Group controlId="Name">
                 <Form.Label>Name</Form.Label>
                 <Form.Control
@@ -127,14 +134,7 @@ const Modal = ({addEvent, editEvent, modalType, modalValue}) => {
                   required
                 />
               </Form.Group>
-              <Button
-                variant="success"
-                type="submit"
-                onClick={handleClose}
-                className="w-100"
-              >
-                Login
-              </Button>
+              <Button type="submit">Add</Button>
             </Form>
           </Modals.Body>
         </Modals>

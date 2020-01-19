@@ -14,7 +14,7 @@ const HomePage = () => {
   };
 
   return (
-    <Layout>
+    <Layout title="Home">
       <div className="d-flex flex-column justify-content-center align-items-center">
         <Card className="mt-5 w-50">
           <Card.Header className="text-center">
