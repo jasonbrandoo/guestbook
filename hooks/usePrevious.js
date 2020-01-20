@@ -7,7 +7,7 @@ const usePrevious = value => {
     previous.current = value;
   });
 
-  return previous;
+  return previous.current;
 };
 
 export default usePrevious;
