@@ -20,13 +20,11 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": [
-    "react",
-    "react-hooks"
-  ],
+  "plugins": ["react", "react-hooks"],
   "rules": {
     "react/jsx-filename-extension": 0,
     "react/jsx-one-expression-per-line": 0,
+    "react/display-name": [0, { "ignoreTranspilerName": true }],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn"
   }
