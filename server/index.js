@@ -10,6 +10,7 @@ app.use(Express.json());
 app.use(cookieParser());
 
 app.get('/tes', (req, res) => {
+  res.status(200);
   res.cookie('tes', 1, { httpOnly: true });
   res.end();
 });
