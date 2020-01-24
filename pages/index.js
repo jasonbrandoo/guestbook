@@ -4,20 +4,16 @@ import useAuth from '../hooks/useAuth';
 import AuthLogin from '../component/Auth/AuthLogin';
 
 const HomePage = () => {
-  const { isLogin, loading } = useAuth();
+  const { loggedIn } = useAuth();
 
-  if (loading) {
-    return (
-      <Layout title="Home">
-        <h1>Home</h1>
-      </Layout>
-    );
-  }
-
-  if (!isLogin) {
+  if (!loggedIn) {
     return <AuthLogin />;
   }
-  return <h1>loading...</h1>;
+  return (
+    <Layout title="Home">
+      <h1>Home</h1>
+    </Layout>
+  );
 };
 
 export default HomePage;

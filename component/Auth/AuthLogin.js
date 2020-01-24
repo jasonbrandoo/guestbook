@@ -16,7 +16,7 @@ const AuthLogin = () => {
     });
   };
 
-  const registerUser = async () => {
+  const handleLogin = async () => {
     try {
       const res = await Axios.post('http://localhost:3001/user/login', input, {
         withCredentials: true,
@@ -38,7 +38,7 @@ const AuthLogin = () => {
       event.stopPropagation();
     } else {
       event.preventDefault();
-      registerUser();
+      handleLogin();
     }
 
     setValidated(true);

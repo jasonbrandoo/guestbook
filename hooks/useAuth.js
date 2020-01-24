@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Axios from 'axios';
-import Cookie from 'js-cookie';
+import { UserContext } from '../utils/userContext';
 
 const useAuth = () => {
-  const [isLogin, setIsLogin] = useState(false);
+  const { loggedIn, setLoggedIn } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -15,25 +15,27 @@ const useAuth = () => {
           withCredentials: true,
         });
         if (response.status === 200) {
-          setIsLogin(true);
+          setLoggedIn(true);
+          setLoading(false);
         } else {
-          setIsLogin(false);
+          setLoggedIn(false);
+          setLoading(false);
         }
       } catch (err) {
-        setIsLogin(false);
+        setLoggedIn(false);
+        setLoading(false);
         console.log(err.message);
       }
     };
     if (mount) {
       checkAuth();
-      setLoading(false);
     }
     return () => {
       mount = false;
     };
-  }, []);
+  }, [setLoggedIn]);
 
-  return { isLogin, loading };
+  return { loggedIn, loading };
 };
 
 export default useAuth;

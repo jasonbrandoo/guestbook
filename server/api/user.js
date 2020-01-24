@@ -57,9 +57,9 @@ router.post('/login', (req, res) => {
           });
         }
         if (same) {
-          const token = jwt.sign({ userName }, 'secret', { expiresIn: '1h' });
+          const token = jwt.sign({ userName }, 'anjing', { expiresIn: '1h' });
           res.status(200);
-          res.cookie('token', token, { httpOnly: true });
+          res.cookie('token', token, { httpOnly: true, signed: true });
           res.json({
             message: 'Login success',
             results,
@@ -77,6 +77,11 @@ router.post('/login', (req, res) => {
 
 router.get('/auth', checkAuth, (req, res) => {
   res.sendStatus(200);
+});
+
+router.get('/read-cookie', (req, res) => {
+  const { token } = req.signedCookies;
+  res.json({ token });
 });
 
 module.exports = router;

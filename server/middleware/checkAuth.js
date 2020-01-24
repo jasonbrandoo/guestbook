@@ -1,8 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const withAuth = (req, res, next) => {
-  const { token } = req.cookies;
-
+  const { token } = req.signedCookies;
   if (!token) {
     res.status(401);
     res.json({
@@ -10,7 +9,7 @@ const withAuth = (req, res, next) => {
     });
     res.end();
   } else {
-    jwt.verify(token, 'secret', (err, decoded) => {
+    jwt.verify(token, 'anjing', (err, decoded) => {
       if (err) {
         res.status(401);
         res.json({
