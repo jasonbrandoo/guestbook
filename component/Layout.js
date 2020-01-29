@@ -1,4 +1,3 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import Head from 'next/head';
 import { Container, Row, Col } from 'react-bootstrap';

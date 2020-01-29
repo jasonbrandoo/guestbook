@@ -1,9 +1,10 @@
+/* eslint-disable react/forbid-prop-types */
 import React from 'react';
-import App from 'next/app';
 import Router from 'next/router';
 import Head from 'next/head';
 import NProgress from 'nprogress';
-import { UserProvider } from '../utils/userContext';
+import PropTypes from 'prop-types';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 NProgress.configure({ showSpinner: false });
 
@@ -17,11 +18,14 @@ const PageApp = ({ Component, pageProps }) => {
       <Head>
         <link rel="stylesheet" type="text/css" href="/nprogress.css" />
       </Head>
-      <UserProvider>
-        <Component {...pageProps} />
-      </UserProvider>
+      <Component {...pageProps} />
     </>
   );
+};
+
+PageApp.propTypes = {
+  Component: PropTypes.func.isRequired,
+  pageProps: PropTypes.object.isRequired,
 };
 
 export default PageApp;

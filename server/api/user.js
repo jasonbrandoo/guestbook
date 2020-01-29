@@ -57,7 +57,7 @@ router.post('/login', (req, res) => {
           });
         }
         if (same) {
-          const token = jwt.sign({ userName }, 'anjing', { expiresIn: '1h' });
+          const token = jwt.sign({ userName }, 'anjing', { expiresIn: '30m' });
           res.status(200);
           res.cookie('token', token, { httpOnly: true, signed: true });
           res.json({

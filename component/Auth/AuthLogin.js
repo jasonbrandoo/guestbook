@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Axios from 'axios';
+import Router from 'next/router';
 import { Card, Form, Button } from 'react-bootstrap';
 
 const AuthLogin = () => {
@@ -22,7 +23,7 @@ const AuthLogin = () => {
         withCredentials: true,
       });
       if (res.status === 200) {
-        alert('login success');
+        Router.push('/');
       } else {
         alert('login error');
       }

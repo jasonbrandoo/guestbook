@@ -1,14 +1,19 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import Axios from 'axios';
-import { UserContext } from '../utils/userContext';
+import { useRouter } from 'next/router';
 
 const useAuth = () => {
-  const { loggedIn, setLoggedIn } = useContext(UserContext);
-  const [loading, setLoading] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(
+    typeof window === 'undefined' ? '' : localStorage.getItem('status'),
+  );
+  const [loading, setLoading] = useState(true);
+  const { pathname } = useRouter();
 
   useEffect(() => {
-    let mount = true;
-    setLoading(true);
+    localStorage.setItem('status', loggedIn);
+  }, [loggedIn]);
+
+  useEffect(() => {
     const checkAuth = async () => {
       try {
         const response = await Axios.get('http://localhost:3001/user/auth', {
@@ -24,18 +29,12 @@ const useAuth = () => {
       } catch (err) {
         setLoggedIn(false);
         setLoading(false);
-        console.log(err.message);
       }
     };
-    if (mount) {
-      checkAuth();
-    }
-    return () => {
-      mount = false;
-    };
-  }, [setLoggedIn]);
+    checkAuth();
+  }, [pathname]);
 
-  return { loggedIn, loading };
+  return [loggedIn, loading];
 };
 
 export default useAuth;

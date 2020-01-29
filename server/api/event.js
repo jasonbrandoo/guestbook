@@ -2,6 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const mysql = require('../model/config');
+const checkAuth = require('../middleware/checkAuth');
 
 router.get('/', (req, res) => {
   const sql = 'SELECT * FROM event';

@@ -11,7 +11,7 @@ const EventTableList = ({ list, deleteEvent, editEvent }) => {
     <tr key={value.id}>
       <td>{index + 1}</td>
       <td>
-        <Link href="/event/[name]/[id]" as={`/event/${value.id}/${value.name}`}>
+        <Link href="/event/[id]/[name]" as={`/event/${value.id}/${value.name}`}>
           <a>{value.name}</a>
         </Link>
       </td>
