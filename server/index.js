@@ -7,8 +7,14 @@ const app = express();
 const server = http.Server(app);
 const io = socketIo(server);
 const port = 3001;
+const dev = process.env.NODE_ENV !== 'production';
 
-app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
+app.use(
+  cors({
+    credentials: true,
+    origin: dev ? 'http://localhost:3000' : 'guestbook-nu.now.sh',
+  }),
+);
 app.use(express.json());
 
 let countUser = 0;
