@@ -1,31 +1,33 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
-import Router from 'next/router';
 import Head from 'next/head';
-import NProgress from 'nprogress';
 import PropTypes from 'prop-types';
+import io from 'socket.io-client';
+import Layout from '../component/Layout';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-NProgress.configure({ showSpinner: false });
+const socket = io('http://localhost:3001');
 
-Router.events.on('routeChangeStart', () => NProgress.start());
-Router.events.on('routeChangeComplete', () => NProgress.done());
-Router.events.on('routeChangeError', () => NProgress.done());
+const propTypes = {
+  Component: PropTypes.func.isRequired,
+  pageProps: PropTypes.object.isRequired,
+};
 
 const PageApp = ({ Component, pageProps }) => {
   return (
     <>
       <Head>
-        <link rel="stylesheet" type="text/css" href="/nprogress.css" />
+        <title>ChatKuy</title>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} socket={socket} />
+      </Layout>
     </>
   );
 };
 
-PageApp.propTypes = {
-  Component: PropTypes.func.isRequired,
-  pageProps: PropTypes.object.isRequired,
-};
+PageApp.propTypes = propTypes;
 
 export default PageApp;

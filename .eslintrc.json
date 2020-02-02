@@ -23,10 +23,11 @@
   "plugins": ["react", "react-hooks"],
   "rules": {
     "no-console": 0,
-    "react/jsx-filename-extension": 0,
-    "react/jsx-one-expression-per-line": 0,
-    "react/display-name": [0, { "ignoreTranspilerName": true }],
+    "react/jsx-filename-extension": "off",
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "warn",
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "react/forbid-prop-types": "off"
   }
 }

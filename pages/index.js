@@ -1,15 +1,21 @@
-import React from 'react';
-import Layout from '../component/Layout';
-import ProtectedRoute from '../component/ProtectedRoute';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import Login from '../component/Login';
+import ChatScreen from '../component/ChatScreen';
 
-const HomePage = props => {
-  return (
-    <ProtectedRoute>
-      <Layout title="Home">
-        <h1>Home</h1>
-      </Layout>
-    </ProtectedRoute>
+const propTypes = {
+  socket: PropTypes.object.isRequired,
+};
+
+const HomePage = ({ socket }) => {
+  const [loggedIn, setLoggedIn] = useState(false);
+  return !loggedIn ? (
+    <Login setLoggedIn={setLoggedIn} socket={socket} />
+  ) : (
+    <ChatScreen socket={socket} />
   );
 };
+
+HomePage.propTypes = propTypes;
 
 export default HomePage;
