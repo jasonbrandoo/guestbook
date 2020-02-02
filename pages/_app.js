@@ -6,7 +6,11 @@ import io from 'socket.io-client';
 import Layout from '../component/Layout';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const socket = io('http://localhost:3001');
+const dev = process.env.NODE_ENV !== 'production';
+
+const socket = io(
+  dev ? 'http://localhost:3001' : 'https://guestbook-nu.now.sh',
+);
 
 const propTypes = {
   Component: PropTypes.func.isRequired,
